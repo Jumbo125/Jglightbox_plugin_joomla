@@ -1,17 +1,18 @@
-// Lightboxdocument.addEventListener("DOMContentLoaded", () => {
-  const options = Joomla.getOptions('jglightbox', {
-    wrapper: 'lightbox_wrapper',
-    exclude: '.slides img,.delete,.edit-icon img,.no-lightbox'
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const options = Joomla.getOptions('jglightbox');
 
-  // Klassen in Arrays umwandeln
-  const wrappers = options.wrapper.split(',').map(cls => cls.trim());
-  const exclude = options.exclude;
+  // Falls Optionen fehlen, abbrechen
+  if (!options || !options.wrapper || !options.exclude) {
+    console.warn('jglightbox: Optionen nicht gesetzt oder unvollständig.');
+    return;
+  }
 
-  wrappers.forEach(wrapper => {
-    const selector = `${wrapper} img:not(${exclude})`;
+  const selector = options.wrapper
+    .split(',')
+    .map(w => `${w.trim()} img:not(${options.exclude})`)
+    .join(', ');
 
-    document.querySelectorAll(selector).forEach((img) => {
+  document.querySelectorAll(selector).forEach((img) => {
     if (!img.closest('a')) {
       const wrapperDiv = img.parentElement;
       const src = img.getAttribute('src');
@@ -27,37 +28,31 @@
           || attr.name.startsWith('data-')
           || attr.name.startsWith('aria-')
         )
-        .filter(attr => attr.name !== 'data-gallery') // behandeln wir separat
+        .filter(attr => attr.name !== 'data-gallery')
         .map(attr => ` ${attr.name}="${attr.value}"`)
         .join('');
 
-      // data-gallery pr�fen (img zuerst, dann parent)
-      let glightbox_data = img.getAttribute('data-gallery');
-      if (!glightbox_data) {
-        glightbox_data = wrapperDiv?.getAttribute('data-gallery');
-      }
-
+      let glightbox_data = img.getAttribute('data-gallery') || wrapperDiv?.getAttribute('data-gallery');
       const dataGlightboxAttr = glightbox_data && glightbox_data !== 'false'
         ? ` data-gallery="${glightbox_data}"`
         : ' data-gallery="undefined"';
 
-      // Optional: data-lightbox �bernehmen oder Default setzen
-      const dataLightbox = img.getAttribute('data-lightbox') || 'default';
+      const a = document.createElement('a');
+      a.href = src;
+      a.setAttribute('data-gallery', glightbox_data);
+      a.classList.add('glightbox');
+      a.innerHTML = `<img${attributeString}${dataGlightboxAttr}>`;
 
-      // Neues Link-Element mit dem Bild erzeugen
-      const wrapper = document.createElement('a');
-      wrapper.href = src;
-      wrapper.setAttribute('data-gallery', glightbox_data);
-      wrapper.classList.add('glightbox');
-      wrapper.innerHTML = `<img${attributeString}${dataGlightboxAttr}>`;
-
-      img.replaceWith(wrapper);
+      img.replaceWith(a);
     }
   });
-});
 
-  // Nur 1x nach der Schleife initialisieren!
+  // Initialisiere GLightbox, falls vorhanden
   setTimeout(() => {
-    GLightbox();
+    if (typeof GLightbox === 'function') {
+      GLightbox();
+    } else {
+      console.warn('GLightbox nicht gefunden.');
+    }
   }, 200);
-
+});
