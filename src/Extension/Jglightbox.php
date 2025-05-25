@@ -19,6 +19,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
 use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
+use Joomla\Event\DispatcherInterface;
 
 class Jglightbox extends CMSPlugin implements SubscriberInterface
 {
@@ -28,6 +29,7 @@ class Jglightbox extends CMSPlugin implements SubscriberInterface
             'onBeforeCompileHead' => 'onBeforeCompileHead',
         ];
     }
+
 
     public function onBeforeCompileHead(Event $event): void
     {

@@ -9,17 +9,17 @@
     {
       "name": "glightbox_style",
       "type": "style",
-      "uri": "plg_content_sjglightbox/glightbox.css"
+      "uri": "plg_content_jglightbox/glightbox.css"
     },
     {
       "name": "glightbox_original",
       "type": "script",
-      "uri": "plg_content_glightbox/glightbox.js"
+      "uri": "plg_content_jglightbox/glightbox.js"
     },
      {
       "name": "glightbox_original_inject",
       "type": "script",
-      "uri": "plg_content_glightbox/glightbox_inject.js",
+      "uri": "plg_content_jglightbox/glightbox_inject.js",
       "dependencies": ["glightbox_original"]
     }
    

@@ -12,25 +12,30 @@
 
 // Sicherheitscheck
 defined('_JEXEC') or die;
-
-use Joomla\CMS\Extension\PluginInterface;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Extension\PluginInterface;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Event\DispatcherInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
 use Joomla\Plugin\Content\Jglightbox\Extension\Jglightbox;
+use Joomla\Registry\Registry;
 
 return new class implements ServiceProviderInterface {
     public function register(Container $container) {
         $container->set(
             PluginInterface::class,
             function (Container $container) {
-                // ✅ Konfiguration aus Plugin laden!
-                $config = (array) PluginHelper::getPlugin('content', 'Jglightbox');
+                $config = (array) PluginHelper::getPlugin('content', 'jglightbox');
                 $dispatcher = $container->get(DispatcherInterface::class);
 
+                // Plugin erzeugen
                 $plugin = new Jglightbox($dispatcher, $config);
+
+                // Plugin-Parameter manuell setzen
+                $plugin->params = new Registry($config['params'] ?? []);
+
+                // Joomla Application zuweisen
                 $plugin->setApplication(Factory::getApplication());
 
                 return $plugin;
