@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://github.com/Jumbo125/Jglightbox_plugin_joomla/blob/main/icon.png" alt="Jglightbox" width="300">
+</p>
 # JG Lightbox JavaScript Integration
 
 Dieses Skript erweitert Bilder in definierten Containern automatisch mit **GLightbox-Funktionalität**. Es wird verwendet im Rahmen eines Joomla-Plugins, das Bilder per CSS-Selektor erkennt und umwandelt.
