@@ -1,0 +1,53 @@
+// Lightbox
+document.addEventListener("DOMContentLoaded", () => {
+  const images = document.querySelectorAll('.lightbox_wrapper img:not(.slides img):not(.delete):not(.edit-icon img):not(.no-lightbox)');
+
+  images.forEach((img) => {
+    if (!img.closest('a')) {
+      const wrapperDiv = img.parentElement;
+      const src = img.getAttribute('src');
+
+      const allowedAttributes = [
+        'src', 'alt', 'title', 'width', 'height', 'class',
+        'loading', 'decoding', 'role',
+      ];
+
+      const attributeString = Array.from(img.attributes)
+        .filter(attr =>
+          allowedAttributes.includes(attr.name)
+          || attr.name.startsWith('data-')
+          || attr.name.startsWith('aria-')
+        )
+        .filter(attr => attr.name !== 'data-gallery') // behandeln wir separat
+        .map(attr => ` ${attr.name}="${attr.value}"`)
+        .join('');
+
+      // data-gallery prüfen (img zuerst, dann parent)
+      let glightbox_data = img.getAttribute('data-gallery');
+      if (!glightbox_data) {
+        glightbox_data = wrapperDiv?.getAttribute('data-gallery');
+      }
+
+      const dataGlightboxAttr = glightbox_data && glightbox_data !== 'false'
+        ? ` data-gallery="${glightbox_data}"`
+        : ' data-gallery="undefined"';
+
+      // Optional: data-lightbox übernehmen oder Default setzen
+      const dataLightbox = img.getAttribute('data-lightbox') || 'default';
+
+      // Neues Link-Element mit dem Bild erzeugen
+      const wrapper = document.createElement('a');
+      wrapper.href = src;
+      wrapper.setAttribute('data-gallery', glightbox_data);
+      wrapper.classList.add('glightbox');
+      wrapper.innerHTML = `<img${attributeString}${dataGlightboxAttr}>`;
+
+      img.replaceWith(wrapper);
+    }
+  });
+
+  // Nur 1x nach der Schleife initialisieren!
+  setTimeout(() => {
+    GLightbox();
+  }, 200);
+});

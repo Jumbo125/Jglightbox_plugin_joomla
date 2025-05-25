@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+    <update>
+        <name>Jglightbox</name>
+        <description>Jglightbox Update</description>
+        <element>Jglightbox</element>
+        <type>plugin</type>
+        <folder>content</folder>
+        <version>1.0.1</version>
+        <infourl title="Jglightbox">https://github.com/Jumbo125/Joomla-jglightbox_plugin</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">
+                https://github.com/Jumbo125/Joomla-jglightbox_plugin/releases/download/v.1.0.1/jglightbox_plugin_v.1.0.1.zip
+            </downloadurl>
+        </downloads>
+        <tags>stable</tags>
+        <maintainer>jumbo125</maintainer>
+        <maintainerurl>https://github.com/Jumbo125</maintainerurl>
+        <targetplatform name="joomla" version="4.0"/>
+    </update>
+</updates>

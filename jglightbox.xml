@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade" element="jglightbox">
+    <namespace path="src">Joomla\Plugin\Content\Jglightbox</namespace>
+    <name>PLG_CONTENT_JGLIGHTBOX</name>
+	<author>Andreas Rottmann</author>
+    <creationDate> </creationDate>
+    <authorEmail> </authorEmail>
+    <authorUrl> </authorUrl>
+ <services>
+    <service src="services/provider.php" />
+</services>
+    <version>1.0.0</version>
+    <license>GPL</license>
+    <copyright>Copyright (C) 2025</copyright>
+    <description>
+      PLG_CONTENT_JGLIGHTBOX_DESC    
+    </description>
+    <files>
+        <folder plugin="jglightbox">services</folder>
+        <folder>src</folder>
+         <folder>language</folder>
+    </files>
+	
+    <media destination="plg_content_jglightbox" folder="media">
+        <folder>js</folder>
+        <folder>css</folder>
+         <file>joomla.asset.json</file>
+    </media>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_content_jglightbox.sys.ini</language>
+        <language tag="de-DE">de-DE/plg_content_jglightbox.sys.ini</language>
+	    <language tag="en-GB">en-GB/plg_content_jglightbox.ini</language>
+        <language tag="de-DE">de-DE/plg_content_jglightbox.ini</language>
+    </languages>
+	
+	<!-- Backend-Konfiguration -->
+<config>
+  <fields name="params">
+    <fieldset name="basic">
+      <field
+        name="wrapper_classes"
+        type="text"
+        default="lightbox_wrapper"
+        label="PLG_CONTENT_JGLIGHTBOX_FIELD_WRAPPER_LABEL"
+        description="PLG_CONTENT_JGLIGHTBOX_FIELD_WRAPPER_DESC"
+      />
+
+      <field
+        name="exclude_selectors"
+        type="text"
+        default=".slides img,.delete,.edit-icon img,.no-lightbox"
+        label="PLG_CONTENT_JGLIGHTBOX_FIELD_EXCLUDE_LABEL"
+        description="PLG_CONTENT_JGLIGHTBOX_FIELD_EXCLUDE_DESC"
+      />
+    </fieldset>
+  </fields>
+</config>
+ <updateservers>
+    <server type="extension" name="Jglightbox Update Server">
+         https://raw.githubusercontent.com/Jumbo125/jglightbox-plugin-joomla/main/update/jglightbox.xml
+    </server>
+</updateservers>
+</extension>
