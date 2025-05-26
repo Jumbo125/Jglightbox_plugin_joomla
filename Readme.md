@@ -1,9 +1,33 @@
 <p align="center">
   <img src="https://github.com/Jumbo125/Jglightbox_plugin_joomla/blob/main/icon.png" alt="Jglightbox" width="300">
 </p>
-# JG Lightbox JavaScript Integration
 
-Dieses Skript erweitert Bilder in definierten Containern automatisch mit **GLightbox-Funktionalität**. Es wird verwendet im Rahmen eines Joomla-Plugins, das Bilder per CSS-Selektor erkennt und umwandelt.
+# 🖼️ JG Lightbox JavaScript Integration
+
+**DE | EN below**
+
+## 📌 Beschreibung (DE)
+
+Dieses Plugin integriert die beliebte [Glightbox](https://biati-digital.github.io/glightbox/) automatisch in Joomla-Artikel.  
+Alle Bilder innerhalb eines definierten Wrappers werden automatisch als Lightbox dargestellt – ganz ohne manuelles JavaScript.
+
+### 🔧 Funktionen
+
+- Automatische Erkennung von Bildern im Wrapper
+- Unterstützung mehrerer Galerien pro Seite
+- Gruppierung von Galerien mit `data-gallery`
+- Ausschluss einzelner Bilder über CSS-Klassen
+- Konfiguration von Wrapper- und Ausschlussklassen im Backend
+
+### 🛠️ Verwendung
+
+#### Wrapper definieren
+
+```html
+<div class="lightbox-wrapper">
+  <a href="images/img1.jpg"><img src="images/thumb1.jpg" /></a>
+</div>
+```
 
 ## 🔧 Funktionsweise
 
@@ -24,7 +48,7 @@ Joomla.getOptions('jglightbox', {
 Das Skript sucht passende Bilder und ersetzt sie durch einen `<a>`-Tag mit `glightbox`-Klasse:
 
 - Nur Bilder **ohne bestehenden Link (`<a>`)** werden ersetzt.
-- Es werden nur bestimmte Attribute vom Originalbild übernommen (z. B. `src`, `alt`, `data-*`, `aria-*`).
+- Es werden nur bestimmte Attribute vom Originalbild übernommen (z. B. `src`, `alt`, `data-*`, `aria-*`)
 - Optional wird `data-gallery` aus dem Bild oder dem Elternelement übernommen.
 
 ### Beispiel: Ergebnisstruktur
@@ -56,8 +80,6 @@ setTimeout(() => {
 
 ## 📁 Konfiguration im Plugin
 
-Die Konfigurationsparameter können im Joomla-Backend gesetzt werden:
-
 | Parameter           | Beschreibung                                 |
 |--------------------|----------------------------------------------|
 | `wrapper_classes`   | Komma-getrennte CSS-Selektoren für Container |
@@ -70,4 +92,96 @@ Die Konfigurationsparameter können im Joomla-Backend gesetzt werden:
 
 ## 🔒 Lizenz
 
-MIT License – basiert auf [GLightbox von Biati Digital](https://github.com/biati-digital/glightbox)
+Dieses Plugin steht unter der **GPL-Lizenz**.  
+Es nutzt die Bibliothek [Glightbox](https://github.com/biati-digital/glightbox), die unter der **MIT License** lizenziert ist.
+
+---
+
+## 📌 Description (EN)
+
+This plugin seamlessly integrates the popular [Glightbox](https://biati-digital.github.io/glightbox/) into Joomla articles.  
+All images within a defined wrapper are automatically displayed as a lightbox – no manual JavaScript required.
+
+### 🔧 Features
+
+- Automatic detection of images inside a wrapper
+- Support for multiple galleries per page
+- Grouping of galleries via `data-gallery`
+- Exclusion of specific images via CSS classes
+- Configurable wrapper and exclusion classes via backend
+
+### 🛠️ Usage
+
+#### Define a wrapper
+
+```html
+<div class="lightbox-wrapper">
+  <a href="images/img1.jpg"><img src="images/thumb1.jpg" /></a>
+</div>
+```
+
+## 🔧 How it works
+
+Once the DOM is fully loaded (`DOMContentLoaded`), the script reads configuration options from the Joomla plugin settings:
+
+```js
+Joomla.getOptions('jglightbox', {
+  wrapper: 'lightbox_wrapper',
+  exclude: '.slides img,.delete,.edit-icon img,.no-lightbox'
+});
+```
+
+- **wrapper**: Container in which images will be searched (e.g. `.lightbox_wrapper`)
+- **exclude**: Selectors for images that **should not** be converted
+
+## 🖼️ Image Processing
+
+The script scans for matching images and wraps them in an `<a>` tag with the `glightbox` class:
+
+- Only images **without an existing `<a>` tag** will be wrapped.
+- Certain attributes from the original `<img>` are preserved (e.g. `src`, `alt`, `data-*`, `aria-*`)
+- The `data-gallery` attribute is optionally taken from the image or its parent container.
+
+### Example output structure
+
+```html
+<a href="image.jpg" data-gallery="group1" class="glightbox">
+  <img src="image.jpg" alt="..." data-gallery="group1">
+</a>
+```
+
+## 🚫 Exclusion
+
+All images that match the `exclude` selector(s) will be ignored and not included in the lightbox.
+
+## 🪄 Initialization
+
+After all matching images are processed, `GLightbox()` is called once to activate the lightbox:
+
+```js
+setTimeout(() => {
+  GLightbox();
+}, 200);
+```
+
+## 💡 Notes
+
+- This script is designed for use with the Joomla plugin `plg_content_jglightbox`.
+- It requires the **Glightbox** library to be loaded separately (`glightbox.min.js` and CSS).
+
+## 📁 Plugin Configuration
+
+| Parameter           | Description                                       |
+|--------------------|---------------------------------------------------|
+| `wrapper_classes`  | Comma-separated CSS selectors for container(s)    |
+| `exclude_selectors`| Selectors for images that should be excluded      |
+
+## ✅ Requirements
+
+- Joomla 4+
+- GLightbox JavaScript library (https://biati-digital.github.io/glightbox/)
+
+## 🔒 License
+
+This plugin is licensed under the **GPL License**.  
+It uses the [Glightbox](https://github.com/biati-digital/glightbox) library, which is licensed under the **MIT License**.
