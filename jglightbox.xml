@@ -41,7 +41,7 @@
       <field
         name="wrapper_classes"
         type="text"
-        default="lightbox_wrapper"
+        default=".lightbox_wrapper"
         label="PLG_CONTENT_JGLIGHTBOX_FIELD_WRAPPER_LABEL"
         description="PLG_CONTENT_JGLIGHTBOX_FIELD_WRAPPER_DESC"
       />
