@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(attr => ` ${attr.name}="${attr.value}"`)
         .join('');
 
-      let glightbox_data = img.getAttribute('data-gallery') || wrapperDiv?.getAttribute('data-gallery');
+      let glightbox_data = img.getAttribute('data-gallery') || img.closest('[data-gallery]')?.getAttribute('data-gallery');
       const dataGlightboxAttr = glightbox_data && glightbox_data !== 'false'
         ? ` data-gallery="${glightbox_data}"`
         : ' data-gallery="undefined"';
